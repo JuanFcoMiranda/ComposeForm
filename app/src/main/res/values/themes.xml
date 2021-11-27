@@ -22,4 +22,10 @@
     <style name="Theme.ComposeForm2.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.ComposeForm2.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="CalenderViewCustom" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="colorAccent">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/purple_500</item>
+        <item name="colorSurface">@color/white</item>
+    </style>
 </resources>

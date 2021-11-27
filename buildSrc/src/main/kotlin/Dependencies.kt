@@ -76,7 +76,7 @@ object Libs {
             const val livedata = "androidx.compose.runtime:runtime-livedata:$composeVersion"
 
             const val activity = "androidx.activity:activity-compose:$composeActivityVersion"
-            const val constraintLayout = "androidx.constraintlauout:constraintlauout-compose:$composeConstraintVersion"
+            const val constraintLayout = "androidx.constraintlayout:constraintlayout-compose:$composeConstraintVersion"
 
             const val animation = "androidx.compose.animation:animation:$composeVersion"
             const val animationCore = "androidx.compose.animation:animation-core:$composeVersion"
@@ -136,6 +136,8 @@ object Libs {
 
     object Google {
         object Accompanist {
+            const val insets = "com.google.accompanist:accompanist-insets:$accompanistVersion"
+            const val insetsUI = "com.google.accompanist:accompanist-insets-ui:$accompanistVersion"
             const val navigationAnimation = "com.google.accompanist:accompanist-navigation-animation:$accompanistVersion"
             const val pager = "com.google.accompanist:accompanist-pager:$accompanistVersion"
             const val pagerIndicators = "com.google.accompanist:accompanist-pager-indicators:$accompanistVersion"

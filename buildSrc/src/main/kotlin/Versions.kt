@@ -13,7 +13,7 @@ object Versions {
 
     const val collectionsImmutableVersion = "0.3.4"
 
-    const val accompanistVersion = "0.21.0-beta"
+    const val accompanistVersion = "0.21.3-beta"
 
     const val activityVersion = "1.3.1"
     const val appCompatVersion = "1.3.1"
@@ -25,7 +25,7 @@ object Versions {
 
     const val composeVersion = "1.1.0-beta01"
     const val composeActivityVersion = activityVersion
-    const val composeConstraintVersion = "1.0.0-alpha08"
+    const val composeConstraintVersion = "1.0.0-beta02"
     const val composeNavigationVersion = "2.4.0-alpha07"
     const val composePaging = "1.0.0-alpha14"
 

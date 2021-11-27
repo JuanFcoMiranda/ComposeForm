@@ -1,38 +1,32 @@
 package com.jfma75.composeform
 
+import android.os.Build
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.jfma75.composeform.ui.theme.ComposeForm2Theme
+import com.jfma75.composeform.app.ComposeFormApp
+import com.jfma75.composeform.screens.LoginScreen
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            ComposeForm2Theme {
-                // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
-                    Greeting("Android")
-                }
+            ComposeFormApp {
+                LoginScreen()
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
+@RequiresApi(Build.VERSION_CODES.O)
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    ComposeForm2Theme {
-        Greeting("Android")
+    ComposeFormApp {
+        LoginScreen()
     }
 }

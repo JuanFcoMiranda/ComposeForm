@@ -1,7 +1,11 @@
+val kotlin_version: String by extra
 plugins {
     id ("com.android.application")
     id ("kotlin-android")
     id ("kotlin-kapt")
+}
+apply {
+    plugin("kotlin-android")
 }
 
 android {
@@ -31,8 +35,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
-        useIR = true
+        jvmTarget = "${JavaVersion.VERSION_11}"
     }
     buildFeatures {
         compose = true
@@ -55,6 +58,7 @@ dependencies {
     // Compose
     implementation (Libs.AndroidX.Compose.activity)
     implementation (Libs.AndroidX.Compose.animation)
+    implementation (Libs.AndroidX.Compose.constraintLayout)
     implementation (Libs.AndroidX.Compose.foundation)
     implementation (Libs.AndroidX.Compose.iconsExtended)
     implementation (Libs.AndroidX.Compose.layout)
@@ -69,6 +73,7 @@ dependencies {
     implementation(Libs.AndroidX.Compose.paging)
 
     // Accompanist
+    implementation (Libs.Google.Accompanist.insets)
     implementation (Libs.Google.Accompanist.swiperefresh)
     implementation (Libs.Google.Accompanist.navigationAnimation)
     implementation (Libs.Google.Accompanist.pager)
@@ -86,6 +91,11 @@ dependencies {
     implementation (Libs.AndroidX.Lifecycle.runtime)
     implementation (Libs.AndroidX.Lifecycle.viewmodel)
 
+    // Lottie
+    implementation (Libs.Airbnb.Compose.lottie)
+
+    //implementation ("com.github.DogusTeknoloji:compose-date-picker:1.0.1")
+
     // Tests
 
     // jUnit
@@ -101,4 +111,7 @@ dependencies {
     androidTestImplementation (Libs.AndroidX.Test.runner)
     androidTestImplementation (Libs.AndroidX.Test.rules)
     androidTestImplementation (Libs.AndroidX.Test.espressoCore)
+}
+repositories {
+    mavenCentral()
 }
