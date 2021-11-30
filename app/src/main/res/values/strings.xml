@@ -5,4 +5,8 @@
     <string name="enter_password">Enter password</string>
     <string name="enter_your_password">Enter your password</string>
     <string name="password_visibility">Sets visibility for the password field</string>
+    <string name="success">Ok</string>
+    <string name="validation_error">Error</string>
+    <string name="email_incorrect">Email is incorrect</string>
+    <string name="password_too_short">Password too short</string>
 </resources>
