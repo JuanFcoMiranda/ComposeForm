@@ -1,7 +1,6 @@
-package com.jfma75.composeform
+package com.jfma75.composeform.components
 
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.border
@@ -17,11 +16,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.jfma75.composeform.screens.InputWrapper
+import java.lang.Exception
 import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -34,7 +35,7 @@ import java.util.*
 @Composable
 fun DatePickerView(
     datePicked : InputWrapper,
-    updatedDate : (date : Long) -> Unit,
+    onValueChange : (date : Long) -> Unit,
 ) {
     val activity = LocalContext.current as? AppCompatActivity
 
@@ -44,8 +45,7 @@ fun DatePickerView(
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun showDatePicker(
-        activity: AppCompatActivity?,
-        updatedDate: (date: Long) -> Unit
+        activity: AppCompatActivity?
     ) {
         val calendar: Calendar = Calendar.getInstance()
         calendar.apply {
@@ -60,41 +60,56 @@ fun DatePickerView(
                     show(supportFragmentManager, "Tag")
                     addOnPositiveButtonClickListener {
                         fieldValue.value = TextFieldValue(text = dateFormatter(it))
-                        updatedDate(it)
+                        onValueChange(it)
                     }
                 }
             }
     }
-
-    Box(
-        modifier = Modifier
-            .padding(16.dp)
-            .border(1.dp, MaterialTheme.colors.surface)
-            .clickable {
-                showDatePicker(activity, updatedDate)
-            }
-    ) {
-        Row(
+    Column {
+        Box(
             modifier = Modifier
                 .padding(16.dp)
+                .border(
+                    1.dp, if (datePicked.errorId != null) {
+                        MaterialTheme.colors.error
+                    } else {
+                        MaterialTheme.colors.surface
+                    }
+                )
+                .clickable {
+                    showDatePicker(activity)
+                }
         ) {
-            Text(
-                text = fieldValue.value.text,
-                color = MaterialTheme.colors.surface,
+            Row(
                 modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    //.fillMaxWidth()
-            )
+                    .padding(16.dp)
+            ) {
+                Text(
+                    text = fieldValue.value.text,
+                    color = MaterialTheme.colors.surface,
+                    modifier = Modifier
+                        .padding(horizontal = 32.dp)
+                )
 
-            Icon(
-                imageVector = Icons.Default.DateRange,
-                contentDescription = null,
-                modifier = Modifier
-                    .size(20.dp),
-                tint = MaterialTheme.colors.surface
+                Icon(
+                    imageVector = Icons.Default.DateRange,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(20.dp),
+                    tint = MaterialTheme.colors.surface
+                )
+            }
+        }
+        if (datePicked.errorId != null) {
+            Text(
+                text = stringResource(datePicked.errorId),
+                color = MaterialTheme.colors.surface,
+                style = MaterialTheme.typography.caption,
+                modifier = Modifier.padding(horizontal = 16.dp)
             )
         }
     }
+
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -116,4 +131,17 @@ fun dateFormatter(stringDate: String): LocalDate {
 fun dateFormatter(longDate: Long): String {
     val date: LocalDateTime = ofInstant(Instant.ofEpochMilli(longDate), ZoneId.systemDefault())
     return dateFormatter(date.toLocalDate())
+}
+
+@RequiresApi(Build.VERSION_CODES.O)
+fun isValidDateTime(stringDate: String) : Boolean {
+    if(stringDate.isBlank()) return false
+    val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH)
+    return try {
+        val date = LocalDate.parse(stringDate, formatter)
+        date != null
+    } catch (ex: Exception) {
+        false
+    }
+
 }

@@ -46,6 +46,8 @@ import com.google.accompanist.insets.navigationBarsPadding
 import com.jfma75.composeform.*
 import com.jfma75.composeform.R
 import com.jfma75.composeform.components.CustomTextField
+import com.jfma75.composeform.components.DatePickerView
+import com.jfma75.composeform.components.dateFormatter
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 
@@ -75,7 +77,7 @@ fun LoginScreen(viewModel : LoginScreenViewModel = hiltViewModel()) {
         )
     }
 
-    val name by viewModel.email.collectAsState()
+    val email by viewModel.email.collectAsState()
     val password by viewModel.password.collectAsState()
     val date by viewModel.datePicked.collectAsState()
     var passwordVisibility by remember { mutableStateOf(false) }
@@ -145,8 +147,8 @@ fun LoginScreen(viewModel : LoginScreenViewModel = hiltViewModel()) {
                         keyboardType = KeyboardType.Email,
                         imeAction = ImeAction.Next
                     ),
-                    inputWrapper = name,
-                    onValueChange = viewModel::onNameEntered,
+                    inputWrapper = email,
+                    onValueChange = viewModel::onEmailEntered,
                     onImeKeyAction = viewModel::onNameImeActionClick
                 )
 
@@ -186,13 +188,11 @@ fun LoginScreen(viewModel : LoginScreenViewModel = hiltViewModel()) {
                         }
                     },
                     inputWrapper = password,
-                    onValueChange = viewModel::onNameEntered,
-                    onImeKeyAction = viewModel::onNameImeActionClick
+                    onValueChange = viewModel::onPasswordEntered,
+                    onImeKeyAction = viewModel::onContinueClick
                 )
 
-                DatePickerView(datePicked = date) { selectedDate ->
-                    date.value = dateFormatter(selectedDate)
-                }
+                DatePickerView(datePicked = date, onValueChange = viewModel::onDateTimeEntered)
 
                 Button(onClick = viewModel::onContinueClick,
                     colors = ButtonDefaults.buttonColors(
